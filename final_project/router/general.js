@@ -21,10 +21,14 @@ public_users.get('/isbn/:isbn',function (req, res) {
     res.send(books[isbn])
  });
   
-// Get book details based on author
+// START HERE TASK 3 Get book details based on author
 public_users.get('/author/:author',function (req, res) {
-    const author = req.params.author;
-    res.send(books[author])
+    let author = parseInt(req.params.author);
+    if(author <1 || author >12) {
+        res.send("Not a valid author")
+    } else {
+        res.send(books[author-1])
+    }
 });
 
 // Get all books based on title
