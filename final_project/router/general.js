@@ -23,11 +23,13 @@ public_users.get('/isbn/:isbn',function (req, res) {
   
 // START HERE TASK 3 Get book details based on author
 public_users.get('/author/:author',function (req, res) {
-    let author = parseInt(req.params.author);
-    if(author <1 || author >12) {
-        res.send("Not a valid author")
+    const keys = Object.keys(books);
+    const author = req.params.author;
+    let filtered_keys = keys.filter((key) => books[key].author === author);
+    if (filtered_keys.length > 0) {
+        res.send(filtered_keys.map(key => books[key]));
     } else {
-        res.send(books[author-1])
+        res.send("No books by that author found.")
     }
 });
 
